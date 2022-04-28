@@ -1,9 +1,12 @@
 import './App.css';
-
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import  CurrentWeather  from './components/currentWeather';
 var geolocation = require('geolocation');
+
 //const dotenv = require('dotenv');
  const apiKey = process.env.REACT_APP_ACCESS_KEY;
 // const f = process.env.REACT_APP_NOT_SECRET_CODE;
@@ -15,6 +18,7 @@ function App() {
   const [currentLocationLong,setCurrentlocationLong] = useState('');
   const [currentLocationWeather,setcurrentLocationWeather] = useState([]);
   const [searchLocation,setsearchlocation] = useState('');
+  const [LocationWeather,setLocationWeather] = useState([]);
   console.log(process.env.REACT_APP_ACCESS_KEY);
   useEffect(() => {
     // geolocation.getCurrentPosition(function (err, position) {
@@ -53,11 +57,23 @@ function App() {
 
 
   return (
- 
-    <>
-<CurrentWeather/>
-<h1>h</h1>
-    </>
+<>
+<Container fluid>
+  <Row>
+    <Col md={{ span: 6, offset: 5 }}>   
+     <CurrentWeather className="mt-9"/>
+    </Col>
+  </Row>
+</Container>
+
+
+  
+
+</> 
+
+
+
+
 
 
   );
