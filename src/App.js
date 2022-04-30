@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import  CurrentWeather  from './components/currentWeather';
-var geolocation = require('geolocation');
+
 
 //const dotenv = require('dotenv');
  const apiKey = process.env.REACT_APP_ACCESS_KEY;
@@ -21,31 +21,25 @@ function App() {
   const [LocationWeather,setLocationWeather] = useState([]);
   console.log(process.env.REACT_APP_ACCESS_KEY);
   useEffect(() => {
-    // geolocation.getCurrentPosition(function (err, position) {
-    //   if (err){
-    //     alert(err);
-    //     setCurrentlocationLat(51.54235346506686)
-    //     setCurrentlocationLong(0.12733947164878906);
-    //   } else{
-    //     console.log(position)
-    //     setCurrentlocationLat(position.coords.latitude)
-    //     setCurrentlocationLong(position.coords.longitude)
-    //   }
-    // })
+  
+    navigator.geolocation.getCurrentPosition(function(position) {
 
-    setCurrentlocationLat(51.500153)
-    setCurrentlocationLong(0.1262362);
-      //console.log(currentLocationLat);
-      //console.log(currentLocationLong);
+        setCurrentlocationLat(position.coords.latitude);
+        setCurrentlocationLong(position.coords.longitude)
+    })
+
+  
+ //console.log(currentLocationLat);
+  //console.log(currentLocationLong);
     const fetchCurrentLocationWeather= async()=>{
       const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocationLat}&lon=${currentLocationLong}&appid=${apiKey}`)
-      console.log(result);
-      setcurrentLocationWeather(result);
-    }
+      //console.log(result);
+       setcurrentLocationWeather(result.data);
+     }
 
     fetchCurrentLocationWeather();
 
-  }, [])
+  }, [currentLocationLat,currentLocationLong])
 
 
   // function SearchWeatherLocation(){
@@ -61,7 +55,7 @@ function App() {
 <Container fluid>
   <Row>
     <Col md={{ span: 6, offset: 5 }}>   
-     <CurrentWeather className="mt-9"/>
+     <CurrentWeather className="mt-9" curWeather={currentLocationWeather}/>
     </Col>
   </Row>
 </Container>
