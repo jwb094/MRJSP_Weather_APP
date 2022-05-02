@@ -17,8 +17,8 @@ function App() {
   const [currentLocationLat,setCurrentlocationLat] = useState('');
   const [currentLocationLong,setCurrentlocationLong] = useState('');
   const [currentLocationWeather,setcurrentLocationWeather] = useState([]);
-  const [searchLocation,setsearchlocation] = useState('');
-  const [LocationWeather,setLocationWeather] = useState([]);
+  const [isloading,setisloading] = useState(true);
+
   console.log(process.env.REACT_APP_ACCESS_KEY);
   useEffect(() => {
   
@@ -35,6 +35,7 @@ function App() {
       const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocationLat}&lon=${currentLocationLong}&appid=${apiKey}`)
       //console.log(result);
        setcurrentLocationWeather(result.data);
+       setisloading(false)
      }
 
     fetchCurrentLocationWeather();
@@ -55,9 +56,10 @@ function App() {
 <>
 <Container fluid>
   <Row>
-    <Col md={{ span: 6, offset: 5 }}>   
+    { !isloading ?  <Col md={{ span: 6, offset: 5 }}>   
      <CurrentWeather className="mt-9" curWeather={currentLocationWeather}/>
-    </Col>
+    </Col> :"Is Loading"}
+  
   </Row>
 </Container>
 
