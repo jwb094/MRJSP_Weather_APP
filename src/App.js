@@ -29,8 +29,8 @@ function App() {
     })
 
   
- //console.log(currentLocationLat);
-  //console.log(currentLocationLong);
+ console.log(currentLocationLat);
+  console.log(currentLocationLong);
     const fetchCurrentLocationWeather= async()=>{
       const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocationLat}&lon=${currentLocationLong}&appid=${apiKey}`)
       //console.log(result);
@@ -41,7 +41,8 @@ function App() {
 
   }, [currentLocationLat,currentLocationLong])
 
-
+  
+  console.log(currentLocationWeather);
   // function SearchWeatherLocation(){
   //   const
 //https://api.openweathermap.org/data/2.5/weather?q=${searchLocation}&appid=${apiKey}
