@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import  CurrentWeather  from './components/currentWeather';
-
+import Forecast from './components/Forecast';
 
 //const dotenv = require('dotenv');
  const apiKey = process.env.REACT_APP_ACCESS_KEY;
@@ -18,8 +18,9 @@ function App() {
   const [currentLocationLong,setCurrentlocationLong] = useState('');
   const [currentLocationWeather,setcurrentLocationWeather] = useState([]);
   const [isloading,setisloading] = useState(true);
+  const [show,setShow] = useState(true);
 
-  console.log(process.env.REACT_APP_ACCESS_KEY);
+
   useEffect(() => {
   
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -28,9 +29,6 @@ function App() {
         setCurrentlocationLong(position.coords.longitude)
     })
 
-  
- console.log(currentLocationLat);
-  console.log(currentLocationLong);
     const fetchCurrentLocationWeather= async()=>{
       const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocationLat}&lon=${currentLocationLong}&appid=${apiKey}`)
       //console.log(result);
@@ -38,28 +36,38 @@ function App() {
        setisloading(false)
      }
 
+    //  const fetchCurrentLocationForecast= async()=>{
+    //   const getCityFromLatAndLong = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${currentLocationLat}&longitude=${currentLocationLong}&localityLanguage=en`)
+    //   console.log(getCityFromLatAndLong);
+    //   var cityname = getCityFromLatAndLong.data.city;
+    //   console.log(cityname);
+    //   const getCurrentLocationForecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid&appid=${apiKey}`)
+
+    //     setcurrentLocationWeather(getCurrentLocationForecast.list);
+    //   }
+
+
     fetchCurrentLocationWeather();
+    // fetchCurrentLocationForecast();
+  }, [currentLocationLat,currentLocationLong]);
 
-  }, [currentLocationLat,currentLocationLong])
 
-  
-  console.log(currentLocationWeather);
-  // function SearchWeatherLocation(){
-  //   const
-//https://api.openweathermap.org/data/2.5/weather?q=${searchLocation}&appid=${apiKey}
-
-  //   const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocationLat}&lon=${currentLocationLong}&appid=${apiKey}`)
-  // }
-
+  function toggleForecast(){
+    setShow(prevState => !prevState)
+  }
 
   return (
 <>
 <Container fluid>
   <Row>
-    { !isloading ?  <Col md={{ span: 6, offset: 5 }}>   
-     <CurrentWeather className="mt-9" curWeather={currentLocationWeather}/>
-    </Col> :"Is Loading"}
-  
+    { !isloading ? 
+                  <Col md={{ span: 6, offset: 5 }}>   
+                  <CurrentWeather className="mt-9" curWeather={currentLocationWeather} toggleForecast={toggleForecast}/>
+                  </Col> :"Is Loading"
+      }
+      <Col md={{ span: 6, offset: 5 }}>   
+      <Forecast/>
+      </Col>
   </Row>
 </Container>
 
