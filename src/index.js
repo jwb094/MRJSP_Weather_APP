@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Route,Routes,BrowserRouter } from 'react-router-dom';
 import  Navbar  from './components/nav';
+import Forecast from './components/Forecast';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,7 @@ root.render(
     <Routes>
 
       <Route exact path="/" element={<App/>}/>
-      <Route exact path="/forecast"/>
+      <Route exact path="/forecast" element={<Forecast/>}/>
       <Route exact path="/wishlist" />
     </Routes>
 </BrowserRouter>

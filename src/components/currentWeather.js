@@ -5,9 +5,7 @@ import Alert from 'react-bootstrap/Alert'
 import { Row,Col } from 'react-bootstrap'
 
 const currentWeather = ({curWeather}) => {
-  function reload(){
-    window.location.reload();
-  }
+
 
   const weatherIcon = `http://openweathermap.org/img/wn/${curWeather.weather[0].icon}@4x.png`
   return (
@@ -15,7 +13,7 @@ const currentWeather = ({curWeather}) => {
    <Card
    bg={'info'}
     style={{ width: '20rem',marginTop:'50px'}} >
-   <Card.Header as="h5" variant="primary" className="text-center"> {curWeather.name}  <Button variant="info" onClick={reload()}>Refresh</Button></Card.Header> 
+   <Card.Header as="h5" variant="primary" className="text-center"> {curWeather.name}  </Card.Header> 
    <Card.Img variant="top" src={weatherIcon} /> 
   <Card.Body>
   
@@ -34,9 +32,9 @@ const currentWeather = ({curWeather}) => {
     </Row>
       
     <Row>
-      <Col md={6}>
+    
       <Button variant="primary">Add To Save Location</Button>
-      </Col>
+
    
     </Row>
 
