@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Route,Routes,BrowserRouter } from 'react-router-dom';
 import  Navbar  from './components/nav';
-import Forecast from './components/Forecast';
+import Forecast from './Forecast';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

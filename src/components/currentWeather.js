@@ -1,12 +1,12 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import Alert from 'react-bootstrap/Alert'
+import {  Link } from "react-router-dom";
 import { Row,Col } from 'react-bootstrap'
 
 const currentWeather = ({curWeather}) => {
 
-
+console.log(curWeather);
   const weatherIcon = `http://openweathermap.org/img/wn/${curWeather.weather[0].icon}@4x.png`
   return (
    <>
@@ -32,10 +32,18 @@ const currentWeather = ({curWeather}) => {
     </Row>
       
     <Row>
-    
+    <Col md={6}>  
       <Button variant="primary">Add To Save Location</Button>
-
-   
+    </Col>
+      <Col md={6}> 
+      <Link to={`forecast`} state={{ forecastlong:curWeather.coord.lon ,forecastlat: curWeather.coord.lat }}>
+      <Button variant="primary">
+      
+               Check Forecast
+           
+      </Button>
+      </Link>
+      </Col>
     </Row>
 
   </Card.Body>
