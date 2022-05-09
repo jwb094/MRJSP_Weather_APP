@@ -3,10 +3,10 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import {  Link } from "react-router-dom";
 import { Row,Col } from 'react-bootstrap'
-
+import { useLocation } from 'react-router-dom';
 const currentWeather = ({curWeather}) => {
 
-console.log(curWeather);
+//console.log(curWeather);
   const weatherIcon = `http://openweathermap.org/img/wn/${curWeather.weather[0].icon}@4x.png`
   return (
    <>
@@ -36,7 +36,7 @@ console.log(curWeather);
       <Button variant="primary">Add To Save Location</Button>
     </Col>
       <Col md={6}> 
-      <Link to={`forecast`} state={{ forecastlong:curWeather.coord.lon ,forecastlat: curWeather.coord.lat }}>
+      <Link to={`forecast`} state={{ prevPath: '/',forecastlong:curWeather.coord.lon ,forecastlat: curWeather.coord.lat }}>
       <Button variant="primary">
       
                Check Forecast
