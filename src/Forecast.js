@@ -4,6 +4,7 @@ import { ForecastList } from './components/ForecastList';
 import TodayForecastList  from './components/TodayForecastList';
 import axios from 'axios';
 import { Row,Col } from 'react-bootstrap';
+var moment = require('moment');
 const apiKey = process.env.REACT_APP_ACCESS_KEY;
 function Forecast () {
   var todayDate = new Date();
@@ -66,8 +67,11 @@ function Forecast () {
         date = date.split(' ');
         date = date[0];
       if (todayDate === date) {
+        //data[index].dt_txt = moment().format('MMMM DD , h:mm:ss a'); // May 10th 2022, 7:23:38 pm
         TodaysForecast.push(data[index]);
       } else {
+        //data[index].dt_txt = moment().format('MMMM DD , h:mm:ss a'); // May 10th 2022, 7:23:38 pm
+        data[index].dt_txt = data[index].dt_txt
         FutureForecast.push(data[index]);
       }
 
@@ -76,11 +80,12 @@ function Forecast () {
     var prospectArr = [];
     var size = 8;
     for(var i = 0; i < FutureForecast.length; i += size) {
+ 
       prospectArr.push(FutureForecast.slice(i, i+size));
     }
     //console.log(prospectArr);
     settodayForecast(TodaysForecast);
-    setprospectForecast(prospectArr);
+    setprospectForecast(prevState => prospectArr);
   }
 
   //const TodaysForecast = '';
@@ -89,18 +94,24 @@ function Forecast () {
   //console.log(prospectForecast);
 
   return (
+    <>
+    
+   
     <Row>
     {todayForecast != null ?  <Col md={12}>
     <TodayForecastList presentForecast={todayForecast}/>
     </Col>:'' 
     }   
-      
-   
-    <Col md={12}>
-    <ForecastList/>
-    </Col>
+    
     </Row>
-  
+    <Row>
+    {prospectForecast != null ?
+    
+    <ForecastList futureForecast={prospectForecast}/>
+    :'' 
+    }
+   </Row>
+   </>
   )
 }
 

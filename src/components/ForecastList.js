@@ -1,8 +1,26 @@
 import React,{useState} from 'react'
-
-export const ForecastList = () => {
-
+import Card from 'react-bootstrap/Card';
+import { Row,Col } from 'react-bootstrap';
+import List  from './List';
+export const ForecastList = ({futureForecast}) => {
+   console.log(futureForecast);
   return (
-    <div >ForecastList</div>
+
+  futureForecast.map((futures)=>(
+    <Col>
+    <List futures={futures}/>
+    </Col>
+ 
+      ))
+
+  
+   
+  
+
+
+   
+
+ 
+  
   )
 }

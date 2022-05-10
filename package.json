@@ -11,6 +11,7 @@
     "dotenv": "^16.0.0",
     "fs": "^0.0.1-security",
     "geolocation": "^0.2.0",
+    "moment": "^2.29.3",
     "react": "^18.0.0",
     "react-bootstrap": "^2.3.1",
     "react-dom": "^18.0.0",
